@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "350639232772",
+    "project_id": "pack-tookang",
+    "storage_bucket": "pack-tookang.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350639232772:android:9a88461dcaeb4644376251",
+        "android_client_info": {
+          "package_name": "com.example.pack_tookang"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTgPMJ2jwwqkP3VQj3F50HTDvoc8NseHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
