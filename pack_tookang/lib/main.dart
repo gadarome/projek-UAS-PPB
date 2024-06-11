@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pack_tookang/firebase_options.dart';
 import 'package:flutter/material.dart';
+import 'package:pack_tookang/ui/home_screen.dart';
+import 'package:pack_tookang/ui/mortar.dart';
 import 'package:pack_tookang/ui/splash.dart';
 import 'package:pack_tookang/ui/utils/routes.dart';
 
