@@ -33,7 +33,7 @@ class HalamanUtama extends StatelessWidget {
           width: 300,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => mortar()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Mortar()));
             },
             child: Text('Mortar'),
             style: ElevatedButton.styleFrom(

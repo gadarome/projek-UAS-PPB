@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class mortar extends StatelessWidget {
+class Mortar extends StatelessWidget {
   final TextEditingController _noteController = TextEditingController();
-  
+
+  void _addNote() async {
+    if (_noteController.text.isNotEmpty) {
+      await FirebaseFirestore.instance.collection('notes').add({
+        'text': _noteController.text,
+      });
+      _noteController.clear();
+    }
+  }
+
+  void _deleteNote(DocumentReference docRef) async {
+    await docRef.delete();
+  }
+
+  void _updateNote(DocumentReference docRef, String newText) async {
+    await docRef.update({
+      'text': newText,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,9 +86,7 @@ class mortar extends StatelessWidget {
                         trailing: PopupMenuButton<String>(
                           onSelected: (String result) {
                             if (result == 'delete') {
-                              FirebaseFirestore.instance.runTransaction((Transaction myTransaction) async {
-                                await myTransaction.delete(snapshot.data!.docs[index].reference);
-                              });
+                              _deleteNote(note.reference);
                             }
                           },
                           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
@@ -79,6 +96,37 @@ class mortar extends StatelessWidget {
                             ),
                           ],
                         ),
+                        onTap: () {
+                          // Memunculkan dialog untuk memperbarui catatan
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              TextEditingController _updateController = TextEditingController();
+                              _updateController.text = note['text'];
+                              return AlertDialog(
+                                title: Text('Update Note'),
+                                content: TextField(
+                                  controller: _updateController,
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      _updateNote(note.reference, _updateController.text);
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('Update'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
                       );
                     },
                   );
@@ -98,6 +146,10 @@ class mortar extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: _addNote,
+              child: Text('Add Note'),
+            ),
           ],
         ),
       ),
